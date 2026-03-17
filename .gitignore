@@ -1,0 +1,6 @@
+__pycache__/
+.ipynb_checkpoints/
+venv/
+.env
+*.pycdata/phishing_email.csv
+data/phishing_email.csv
