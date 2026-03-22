@@ -26,3 +26,11 @@ The final selected dataset is the Phishing Email Dataset from Kaggle.
 
 ## Current Status
 Week 1 setup and planning completed.
+
+## Week 2 Progress
+- Loaded final phishing email dataset
+- Examined dataset structure, dimensions, and data types
+- Performed exploratory data analysis
+- Identified missing values and duplicates
+- Created visualizations for class distribution and text length
+- Documented initial findings and recommendations
