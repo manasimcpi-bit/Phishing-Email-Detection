@@ -33,4 +33,4 @@ Week 1 setup and planning completed.
 - Performed exploratory data analysis
 - Identified missing values and duplicates
 - Created visualizations for class distribution and text length
-- Documented initial findings and recommendations
+- Documented initial findings and recommendations# Phishing-Email-Detection
