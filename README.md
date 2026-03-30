@@ -34,3 +34,15 @@ Week 1 setup and planning completed.
 - Identified missing values and duplicates
 - Created visualizations for class distribution and text length
 - Documented initial findings and recommendations# Phishing-Email-Detection
+
+
+## Week 3 Progress
+- Handled missing and blank values
+- Removed duplicate rows
+- Standardized target labels
+- Cleaned email text
+- Created engineered features
+- Performed outlier detection
+- Applied feature scaling
+- Encoded target labels
+- Saved preprocessed dataset
