@@ -44,5 +44,6 @@ Week 1 setup and planning completed.
 - Created engineered features
 - Performed outlier detection
 - Applied feature scaling
-- Encoded target labels
+- Encoded target labels 
+
 - Saved preprocessed dataset
