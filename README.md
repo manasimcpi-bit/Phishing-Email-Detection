@@ -47,3 +47,11 @@ Week 1 setup and planning completed.
 - Encoded target labels 
 
 - Saved preprocessed dataset
+
+## Week 4 Progress
+- Loaded preprocessed dataset
+- Split data into training and testing sets
+- Applied TF-IDF vectorization
+- Trained Logistic Regression, Random Forest, and SVM models
+- Evaluated model performance using accuracy, precision, recall, and F1-score
+- Compared baseline model results
