@@ -55,3 +55,8 @@ Week 1 setup and planning completed.
 - Trained Logistic Regression, Random Forest, and SVM models
 - Evaluated model performance using accuracy, precision, recall, and F1-score
 - Compared baseline model results
+## Week 5 Progress
+- Evaluated RF, LR, SVM, and BERT
+- Recorded accuracy, precision, recall, and F1-score
+- Created a multi-model comparison table
+- Documented cross-dataset observations
