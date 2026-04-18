@@ -1,6 +1,17 @@
-__pycache__/
-.ipynb_checkpoints/
+# Virtual environment
 venv/
-.env
-*.pycdata/phishing_email.csv
-data/phishing_email.csv
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Ignore all datasets
+data/*.csv
+
+# Ignore large saved models
+app/models/*.pkl
+app/models/bert_model/
+
+# Optional temp outputs
+app/static/outputs/

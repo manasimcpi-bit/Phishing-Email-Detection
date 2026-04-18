@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Attack Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="page-bg">
+        <div class="container">
+            <h1>Cybersecurity Attack Detection System</h1>
+            <p class="subtitle">Upload dataset to detect potential cyber attacks</p>
+
+            <div class="grid">
+                <div class="card">
+                    <h2>Model Performance</h2>
+                    <ul>
+                        <li><strong>Logistic Regression:</strong> Accuracy {{ performance["Logistic Regression"]["accuracy"] }}, Precision {{ performance["Logistic Regression"]["precision"] }}, Recall {{ performance["Logistic Regression"]["recall"] }}</li>
+                        <li><strong>Random Forest:</strong> Accuracy {{ performance["Random Forest"]["accuracy"] }}, Precision {{ performance["Random Forest"]["precision"] }}, Recall {{ performance["Random Forest"]["recall"] }}</li>
+                        <li><strong>SVM:</strong> Accuracy {{ performance["SVM"]["accuracy"] }}, Precision {{ performance["SVM"]["precision"] }}, Recall {{ performance["SVM"]["recall"] }}</li>
+                        {% if bert_available %}
+                        <li><strong>BERT:</strong> Accuracy {{ performance["BERT"]["accuracy"] }}, Precision {{ performance["BERT"]["precision"] }}, Recall {{ performance["BERT"]["recall"] }}</li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h2>System Status</h2>
+                    <ul>
+                        {% for model, status in model_status.items() %}
+                        <li><strong>{{ model }}:</strong> {{ status }}</li>
+                        {% endfor %}
+                        <li><strong>Preprocessing:</strong> Active</li>
+                        <li><strong>Feature Scaling:</strong> Configured</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="upload-box">
+                <h2>Upload Dataset</h2>
+                <p>Upload a CSV file containing email text or traffic features for attack detection.</p>
+
+                <form action="/predict" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file" accept=".csv" required>
+                    <br><br>
+                    <button type="submit">Analyze for Threats</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>Supported File Format</h2>
+                <ul>
+                    <li>CSV with text column such as text, email, email_text, message, Email Text, or text_combined</li>
+                    <li>Optional label column for confusion matrix</li>
+                    <li>Cleaned text will be auto-generated if needed</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

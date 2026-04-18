@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detection Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="page-bg">
+        <div class="container">
+            <h1>Cybersecurity Detection Results</h1>
+            <p class="subtitle">Analysis completed for {{ total_rows }} records</p>
+
+            <div class="stats-grid">
+                <div class="stat-card danger">
+                    <h3>Logistic Regression</h3>
+                    <div class="big-number">{{ lr_attacks }}</div>
+                    <p>Attacks Detected</p>
+                </div>
+
+                <div class="stat-card danger">
+                    <h3>Random Forest</h3>
+                    <div class="big-number">{{ rf_attacks }}</div>
+                    <p>Attacks Detected</p>
+                </div>
+
+                <div class="stat-card danger">
+                    <h3>SVM</h3>
+                    <div class="big-number">{{ svm_attacks }}</div>
+                    <p>Attacks Detected</p>
+                </div>
+
+                <div class="stat-card warning">
+                    <h3>High Risk Connections</h3>
+                    <div class="big-number">{{ high_risk }}</div>
+                    <p>Require Immediate Attention</p>
+                </div>
+            </div>
+
+            <div class="alert-box">
+                Security alert: Potential cyber attacks detected. Review the high-risk connections immediately.
+            </div>
+
+            <div class="card">
+                <h2>Detection Analysis Visualization</h2>
+                <div class="chart-grid">
+                    <div>
+                        <img src="{{ url_for('static', filename='outputs/attacks_by_model.png') }}" alt="attacks chart">
+                    </div>
+                    <div>
+                        <img src="{{ url_for('static', filename='outputs/probability_distribution.png') }}" alt="probability chart">
+                    </div>
+                    <div>
+                        <img src="{{ url_for('static', filename='outputs/risk_distribution.png') }}" alt="risk chart">
+                    </div>
+                </div>
+            </div>
+
+            {% if show_confusion %}
+            <div class="card">
+                <h2>Confusion Matrices</h2>
+                <div class="chart-grid">
+                    <div>
+                        <img src="{{ url_for('static', filename='outputs/lr_confusion.png') }}" alt="lr confusion">
+                    </div>
+                    <div>
+                        <img src="{{ url_for('static', filename='outputs/rf_confusion.png') }}" alt="rf confusion">
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="card">
+                <h2>Detailed Results (First 50 Records)</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Connection #</th>
+                                <th>LR Prediction</th>
+                                <th>LR Probability</th>
+                                <th>RF Prediction</th>
+                                <th>RF Probability</th>
+                                <th>SVM Prediction</th>
+                                <th>Ensemble</th>
+                                <th>Risk Level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in preview_rows %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ row["LR Prediction"] }}</td>
+                                <td>{{ row["LR Probability"] }}</td>
+                                <td>{{ row["RF Prediction"] }}</td>
+                                <td>{{ row["RF Probability"] }}</td>
+                                <td>{{ row["SVM Prediction"] }}</td>
+                                <td>{{ row["Ensemble"] }}</td>
+                                <td>{{ row["Risk Level"] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="button-row">
+                <a href="/" class="btn secondary">Analyze Another File</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
