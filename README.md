@@ -1,62 +1,76 @@
-# Phishing Email Detection
+# Phishing Email Detection and Cybersecurity Attack Detection System
 
 ## Project Overview
-This project focuses on detecting phishing emails using a simple machine learning approach.
+This project focuses on detecting phishing emails and suspicious cyber attack patterns using machine learning and natural language processing techniques. The system compares multiple models, including Logistic Regression, Random Forest, Support Vector Machine, and BERT, and evaluates their performance using standard classification metrics.
 
-## Problem Statement
-Phishing emails are deceptive messages that attempt to steal sensitive user information by pretending to be legitimate communications.
+## Project Objectives
+- Detect phishing or malicious patterns from uploaded data
+- Compare the performance of multiple machine learning models
+- Test model generalization using another dataset
+- Build a graphical user interface for practical prediction
+- Present results visually through charts, confusion matrices, and tables
 
-## Selected Dataset
-The final selected dataset is the Phishing Email Dataset from Kaggle.
+## Models Used
+- Logistic Regression
+- Random Forest
+- Support Vector Machine
+- BERT (advanced experimental model)
 
 ## Tools and Technologies
 - Python
+- VS Code on Windows
+- Flask
 - pandas
 - numpy
 - matplotlib
 - scikit-learn
-- Jupyter Notebook / VS Code
-- Git and GitHub
+- joblib
+- transformers
+- torch
 
-## Project Structure
-- data/
-- notebooks/
-- src/
-- results/
-
-## Current Status
-Week 1 setup and planning completed.
+## Week 1 Progress
+- Defined the cybersecurity problem
+- Identified and compared datasets
+- Selected the final dataset
+- Set up the development environment
+- Initialized Git and project structure
 
 ## Week 2 Progress
-- Loaded final phishing email dataset
-- Examined dataset structure, dimensions, and data types
-- Performed exploratory data analysis
-- Identified missing values and duplicates
-- Created visualizations for class distribution and text length
-- Documented initial findings and recommendations# Phishing-Email-Detection
-
+- Loaded and explored the selected dataset
+- Examined columns, data types, and missing values
+- Performed initial exploratory data analysis
 
 ## Week 3 Progress
-- Handled missing and blank values
-- Removed duplicate rows
-- Standardized target labels
-- Cleaned email text
-- Created engineered features
-- Performed outlier detection
-- Applied feature scaling
-- Encoded target labels 
-
-- Saved preprocessed dataset
+- Cleaned text data
+- Standardized labels
+- Removed missing and duplicate values
+- Prepared data for training
 
 ## Week 4 Progress
-- Loaded preprocessed dataset
-- Split data into training and testing sets
-- Applied TF-IDF vectorization
-- Trained Logistic Regression, Random Forest, and SVM models
-- Evaluated model performance using accuracy, precision, recall, and F1-score
-- Compared baseline model results
+- Applied TF-IDF feature extraction
+- Trained Logistic Regression, Random Forest, and SVM
+- Evaluated baseline model performance
+
 ## Week 5 Progress
-- Evaluated RF, LR, SVM, and BERT
-- Recorded accuracy, precision, recall, and F1-score
-- Created a multi-model comparison table
-- Documented cross-dataset observations
+- Compared Logistic Regression, Random Forest, SVM, and BERT
+- Evaluated models using accuracy, precision, recall, and F1-score
+- Tested trained models on another phishing-related dataset
+- Created comparison tables and charts
+- Updated project results and documentation
+
+## Week 6 Progress
+- Started building the graphical user interface using Flask
+- Integrated trained models into the application
+- Added CSV upload and prediction workflow
+- Generated visual outputs such as charts and confusion matrices
+- Displayed detailed prediction results in table format
+- Continued BERT integration as an advanced model component
+- Applied trained models to another dataset as required by supervisor feedback
+
+## Current Application Features
+- Upload CSV file for prediction
+- View model status and performance summary
+- Detect attacks using Logistic Regression, Random Forest, and SVM
+- Display visual analytics including bar chart, probability distribution, and risk distribution
+- Show confusion matrices when labels are available
+- Preview detailed prediction results for the first 50 records
