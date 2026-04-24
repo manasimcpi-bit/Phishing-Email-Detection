@@ -74,3 +74,15 @@ This project focuses on detecting phishing emails and suspicious cyber attack pa
 - Display visual analytics including bar chart, probability distribution, and risk distribution
 - Show confusion matrices when labels are available
 - Preview detailed prediction results for the first 50 records
+
+## Week 7 Application Features
+- User authentication system with login and logout functionality
+- Role-based access control with Admin and User accounts
+- Admin panel for creating and managing user accounts
+- Secure password hashing for storing user credentials
+- Session-based protection for restricted routes
+- Integrated BERT model into the system interface
+- Display BERT status alongside Logistic Regression, Random Forest, and SVM
+- Show BERT predictions in the result dashboard (when available)
+- Enhanced UI with user info and role-based navigation
+- Updated results page to include BERT in model comparison
