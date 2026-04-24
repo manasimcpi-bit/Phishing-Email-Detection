@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Users</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="page-bg">
+        <div class="container">
+            <div class="topbar">
+                <div>
+                    <h1>Admin User Management</h1>
+                    <p class="subtitle">Create and manage user/admin accounts</p>
+                </div>
+                <div class="user-panel">
+                    <span><strong>User:</strong> {{ current_user["username"] }}</span>
+                    <span><strong>Role:</strong> {{ current_user["role"] }}</span>
+                    <a href="{{ url_for('home') }}" class="btn secondary">Home</a>
+                    <a href="{{ url_for('logout') }}" class="btn danger">Logout</a>
+                </div>
+            </div>
+
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <div class="flash-box">
+                    {% for message in messages %}
+                        <div class="flash-message">{{ message }}</div>
+                    {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
+
+            <div class="grid">
+                <div class="card">
+                    <h2>Create New Account</h2>
+                    <form method="POST">
+                        <label>Username</label>
+                        <input type="text" name="username" required>
+
+                        <label>Password</label>
+                        <input type="password" name="password" required>
+
+                        <label>Role</label>
+                        <select name="role" required>
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
+
+                        <br><br>
+                        <button type="submit">Create Account</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h2>Current Users</h2>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Username</th>
+                                    <th>Role</th>
+                                    <th>Created At</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                <tr>
+                                    <td>{{ user["id"] }}</td>
+                                    <td>{{ user["username"] }}</td>
+                                    <td>{{ user["role"] }}</td>
+                                    <td>{{ user["created_at"] }}</td>
+                                    <td>
+                                        {% if user["username"] != "admin" and user["id"] != current_user["id"] %}
+                                        <form action="{{ url_for('delete_user', user_id=user['id']) }}" method="POST" style="display:inline;">
+                                            <button type="submit" class="btn danger small-btn">Delete</button>
+                                        </form>
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

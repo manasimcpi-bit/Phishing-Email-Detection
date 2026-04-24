@@ -9,8 +9,20 @@
 <body>
     <div class="page-bg">
         <div class="container">
-            <h1>Cybersecurity Detection Results</h1>
-            <p class="subtitle">Analysis completed for {{ total_rows }} records</p>
+            <div class="topbar">
+                <div>
+                    <h1>Cybersecurity Detection Results</h1>
+                    <p class="subtitle">Analysis completed for {{ total_rows }} records</p>
+                </div>
+                <div class="user-panel">
+                    <span><strong>User:</strong> {{ current_user["username"] }}</span>
+                    <span><strong>Role:</strong> {{ current_user["role"] }}</span>
+                    {% if current_user["role"] == "admin" %}
+                        <a href="{{ url_for('admin_users') }}" class="btn secondary">Admin Panel</a>
+                    {% endif %}
+                    <a href="{{ url_for('logout') }}" class="btn danger">Logout</a>
+                </div>
+            </div>
 
             <div class="stats-grid">
                 <div class="stat-card danger">
@@ -29,6 +41,24 @@
                     <h3>SVM</h3>
                     <div class="big-number">{{ svm_attacks }}</div>
                     <p>Attacks Detected</p>
+                </div>
+
+                <div class="stat-card info">
+                    <h3>BERT</h3>
+                    <div class="big-number">
+                        {% if bert_available %}
+                            {{ bert_attacks }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </div>
+                    <p>
+                        {% if bert_available %}
+                            Attacks Detected
+                        {% else %}
+                            Model Not Loaded
+                        {% endif %}
+                    </p>
                 </div>
 
                 <div class="stat-card warning">
@@ -77,12 +107,16 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Connection #</th>
+                                <th>#</th>
                                 <th>LR Prediction</th>
                                 <th>LR Probability</th>
                                 <th>RF Prediction</th>
                                 <th>RF Probability</th>
                                 <th>SVM Prediction</th>
+                                {% if bert_available %}
+                                    <th>BERT Prediction</th>
+                                    <th>BERT Probability</th>
+                                {% endif %}
                                 <th>Ensemble</th>
                                 <th>Risk Level</th>
                             </tr>
@@ -96,6 +130,10 @@
                                 <td>{{ row["RF Prediction"] }}</td>
                                 <td>{{ row["RF Probability"] }}</td>
                                 <td>{{ row["SVM Prediction"] }}</td>
+                                {% if bert_available %}
+                                    <td>{{ row["BERT Prediction"] }}</td>
+                                    <td>{{ row["BERT Probability"] }}</td>
+                                {% endif %}
                                 <td>{{ row["Ensemble"] }}</td>
                                 <td>{{ row["Risk Level"] }}</td>
                             </tr>
@@ -106,7 +144,7 @@
             </div>
 
             <div class="button-row">
-                <a href="/" class="btn secondary">Analyze Another File</a>
+                <a href="{{ url_for('home') }}" class="btn secondary">Analyze Another File</a>
             </div>
         </div>
     </div>

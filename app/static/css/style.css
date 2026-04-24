@@ -9,11 +9,20 @@ body {
 }
 
 .container {
-    max-width: 1100px;
+    max-width: 1180px;
     margin: auto;
     background: #f7f7f7;
     border-radius: 20px;
     padding: 30px;
+}
+
+.login-container {
+    max-width: 450px;
+    margin: 60px auto;
+    background: #f7f7f7;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
 }
 
 h1 {
@@ -26,6 +35,21 @@ h1 {
     text-align: center;
     color: #666;
     margin-bottom: 25px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.user-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
 }
 
 .grid {
@@ -52,6 +76,18 @@ h1 {
     margin-bottom: 25px;
 }
 
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input, select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
 button, .btn {
     background: #25a55f;
     color: white;
@@ -61,15 +97,25 @@ button, .btn {
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
+    text-align: center;
 }
 
 .btn.secondary {
     background: #4466cc;
 }
 
+.btn.danger {
+    background: #d9534f;
+}
+
+.small-btn {
+    padding: 8px 14px;
+    border-radius: 8px;
+}
+
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 18px;
     margin-bottom: 25px;
 }
@@ -88,6 +134,10 @@ button, .btn {
 
 .stat-card.warning {
     border-left: 6px solid #d4a017;
+}
+
+.stat-card.info {
+    border-left: 6px solid #17a2b8;
 }
 
 .big-number {
@@ -142,8 +192,48 @@ th {
     margin-top: 20px;
 }
 
+.flash-box {
+    margin-bottom: 20px;
+}
+
+.flash-message {
+    background: #fff3cd;
+    color: #856404;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.note-box {
+    background: #e8f0fe;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    color: #333;
+}
+
+@media (max-width: 1100px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .chart-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 900px) {
-    .grid, .stats-grid, .chart-grid {
+    .grid, .topbar {
+        grid-template-columns: 1fr;
+        display: block;
+    }
+
+    .user-panel {
+        align-items: flex-start;
+        margin-top: 15px;
+    }
+
+    .stats-grid {
         grid-template-columns: 1fr;
     }
 }
