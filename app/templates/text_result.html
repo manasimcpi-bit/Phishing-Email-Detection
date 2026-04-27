@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text Detection Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="page-bg">
+    <div class="container">
+
+        <div class="topbar">
+            <div>
+                <h1>Email Text Detection Result</h1>
+                <p class="subtitle">Single text analysis completed</p>
+            </div>
+
+            <div class="user-panel">
+                <span><strong>User:</strong> {{ current_user["username"] }}</span>
+                <span><strong>Role:</strong> {{ current_user["role"] }}</span>
+                <a href="{{ url_for('home') }}" class="btn secondary">Home</a>
+                <a href="{{ url_for('logout') }}" class="btn danger">Logout</a>
+            </div>
+        </div>
+
+        <div class="stats-grid text-result-grid">
+            <div class="stat-card danger">
+                <h3>Final Prediction</h3>
+                <div class="big-number">{{ row["Final Prediction"] }}</div>
+                <p>Ensemble decision</p>
+            </div>
+
+            <div class="stat-card warning">
+                <h3>Risk Level</h3>
+                <div class="big-number">{{ row["Risk Level"] }}</div>
+                <p>Based on probability</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Model-wise Result</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th>Prediction</th>
+                        <th>Probability</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Logistic Regression</td>
+                        <td>{{ row["LR Prediction"] }}</td>
+                        <td>{{ row["LR Probability"] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Random Forest</td>
+                        <td>{{ row["RF Prediction"] }}</td>
+                        <td>{{ row["RF Probability"] }}</td>
+                    </tr>
+                    <tr>
+                        <td>SVM</td>
+                        <td>{{ row["SVM Prediction"] }}</td>
+                        <td>N/A</td>
+                    </tr>
+
+                    {% if bert_available %}
+                    <tr>
+                        <td>BERT</td>
+                        <td>{{ row["BERT Prediction"] }}</td>
+                        <td>{{ row["BERT Probability"] }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td>BERT</td>
+                        <td>N/A</td>
+                        <td>Model Not Loaded</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Submitted Text</h2>
+            <p class="submitted-text">{{ input_text }}</p>
+        </div>
+
+        <div class="button-row">
+            <a href="{{ url_for('home') }}" class="btn secondary">Analyze Another Text</a>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

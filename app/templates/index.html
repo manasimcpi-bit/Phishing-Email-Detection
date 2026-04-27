@@ -2,85 +2,101 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cybersecurity Attack Detection System</title>
+    <title>Cybersecurity Detection System</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="page-bg">
-        <div class="container">
-            <div class="topbar">
-                <div>
-                    <h1>Cybersecurity Attack Detection System</h1>
-                    <p class="subtitle">Upload data to detect potential cyber attacks</p>
-                </div>
-                <div class="user-panel">
-                    <span><strong>User:</strong> {{ current_user["username"] }}</span>
-                    <span><strong>Role:</strong> {{ current_user["role"] }}</span>
-                    {% if current_user["role"] == "admin" %}
-                        <a href="{{ url_for('admin_users') }}" class="btn secondary">Admin Panel</a>
+<div class="page-bg">
+    <div class="container">
+
+        <div class="topbar">
+            <div>
+                <h1>Cybersecurity Email Detection System</h1>
+                <p class="subtitle">Upload files or paste email text to detect phishing threats</p>
+            </div>
+
+            <div class="user-panel">
+                <span><strong>User:</strong> {{ current_user["username"] }}</span>
+                <span><strong>Role:</strong> {{ current_user["role"] }}</span>
+
+                {% if current_user["role"] == "admin" %}
+                    <a href="{{ url_for('admin_users') }}" class="btn secondary">Admin Panel</a>
+                {% endif %}
+
+                <a href="{{ url_for('logout') }}" class="btn danger">Logout</a>
+            </div>
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash-box">
+                {% for message in messages %}
+                    <div class="flash-message">{{ message }}</div>
+                {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <div class="grid">
+            <div class="card">
+                <h2>Model Performance</h2>
+                <ul>
+                    <li><strong>Logistic Regression:</strong> Accuracy 0.98, Precision 0.98, Recall 0.98</li>
+                    <li><strong>Random Forest:</strong> Accuracy 0.99, Precision 0.99, Recall 0.99</li>
+                    <li><strong>SVM:</strong> Accuracy 0.99, Precision 0.99, Recall 0.99</li>
+                    {% if bert_available %}
+                        <li><strong>BERT:</strong> Accuracy 0.95, Precision 0.95, Recall 0.95</li>
+                    {% else %}
+                        <li><strong>BERT:</strong> Not loaded</li>
                     {% endif %}
-                    <a href="{{ url_for('logout') }}" class="btn danger">Logout</a>
-                </div>
-            </div>
-
-            {% with messages = get_flashed_messages() %}
-              {% if messages %}
-                <div class="flash-box">
-                    {% for message in messages %}
-                        <div class="flash-message">{{ message }}</div>
-                    {% endfor %}
-                </div>
-              {% endif %}
-            {% endwith %}
-
-            <div class="grid">
-                <div class="card">
-                    <h2>Model Performance</h2>
-                    <ul>
-                        <li><strong>Logistic Regression:</strong> Accuracy {{ performance["Logistic Regression"]["accuracy"] }}, Precision {{ performance["Logistic Regression"]["precision"] }}, Recall {{ performance["Logistic Regression"]["recall"] }}</li>
-                        <li><strong>Random Forest:</strong> Accuracy {{ performance["Random Forest"]["accuracy"] }}, Precision {{ performance["Random Forest"]["precision"] }}, Recall {{ performance["Random Forest"]["recall"] }}</li>
-                        <li><strong>SVM:</strong> Accuracy {{ performance["SVM"]["accuracy"] }}, Precision {{ performance["SVM"]["precision"] }}, Recall {{ performance["SVM"]["recall"] }}</li>
-                        {% if bert_available %}
-                            <li><strong>BERT:</strong> Accuracy {{ performance["BERT"]["accuracy"] }}, Precision {{ performance["BERT"]["precision"] }}, Recall {{ performance["BERT"]["recall"] }}</li>
-                        {% else %}
-                            <li><strong>BERT:</strong> Not loaded</li>
-                        {% endif %}
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h2>System Status</h2>
-                    <ul>
-                        {% for model, status in model_status.items() %}
-                            <li><strong>{{ model }}:</strong> {{ status }}</li>
-                        {% endfor %}
-                        <li><strong>Preprocessing:</strong> Active</li>
-                        <li><strong>Feature Extraction:</strong> Configured</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="upload-box">
-                <h2>Upload Dataset</h2>
-                <p>Upload a CSV file containing email text or traffic features for attack detection.</p>
-
-                <form action="/predict" method="post" enctype="multipart/form-data">
-                    <input type="file" name="file" accept=".csv" required>
-                    <br><br>
-                    <button type="submit">Analyze for Threats</button>
-                </form>
+                </ul>
             </div>
 
             <div class="card">
-                <h2>Supported File Format</h2>
+                <h2>System Status</h2>
                 <ul>
-                    <li>CSV with a text column such as text, email, email_text, message, Email Text, or text_combined</li>
-                    <li>Optional label column for confusion matrix generation</li>
-                    <li>BERT output will appear automatically if the model is loaded successfully</li>
+                    {% for model, status in model_status.items() %}
+                        <li><strong>{{ model }}:</strong> {{ status }}</li>
+                    {% endfor %}
+                    <li><strong>Preprocessing:</strong> Active</li>
+                    <li><strong>Feature Extraction:</strong> Configured</li>
                 </ul>
             </div>
         </div>
+
+        <div class="upload-box">
+            <h2>Upload File for Bulk Detection</h2>
+            <p>Supported formats: CSV, Excel (.xlsx/.xls), and TXT files.</p>
+
+            <form action="{{ url_for('predict_file') }}" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" accept=".csv,.xlsx,.xls,.txt" required>
+                <br><br>
+                <button type="submit">Analyze File</button>
+            </form>
+        </div>
+
+        <div class="upload-box text-box-area">
+            <h2>Paste Email Text</h2>
+            <p>Paste any email text below and check whether it is phishing or legitimate.</p>
+
+            <form action="{{ url_for('predict_text') }}" method="post">
+                <textarea name="email_text" rows="9" placeholder="Paste email text here..." required></textarea>
+                <br><br>
+                <button type="submit">Analyze Text</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Supported Input Types</h2>
+            <ul>
+                <li><strong>CSV:</strong> Upload email dataset or message column</li>
+                <li><strong>Excel:</strong> Upload .xlsx or .xls file</li>
+                <li><strong>TXT:</strong> Upload plain text emails or message lines</li>
+                <li><strong>Direct Text:</strong> Paste email text manually</li>
+            </ul>
+        </div>
+
     </div>
+</div>
 </body>
 </html>

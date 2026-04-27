@@ -2,42 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Cybersecurity Detection</title>
+    <title>Login - Detection System</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="page-bg">
-        <div class="login-container">
-            <h1>Login</h1>
-            <p class="subtitle">Cybersecurity Attack Detection System</p>
+<div class="page-bg">
+    <div class="login-container">
 
-            {% with messages = get_flashed_messages() %}
-              {% if messages %}
-                <div class="flash-box">
-                    {% for message in messages %}
-                        <div class="flash-message">{{ message }}</div>
-                    {% endfor %}
-                </div>
-              {% endif %}
-            {% endwith %}
+        <h1>Login</h1>
+        <p class="subtitle">Cybersecurity Email Detection System</p>
 
-            <form method="POST" class="login-form">
-                <label>Username</label>
-                <input type="text" name="username" required>
-
-                <label>Password</label>
-                <input type="password" name="password" required>
-
-                <button type="submit">Login</button>
-            </form>
-
-            <div class="note-box">
-                <strong>Default admin account:</strong><br>
-                Username: admin<br>
-                Password: Admin@123
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash-box">
+                {% for message in messages %}
+                    <div class="flash-message">{{ message }}</div>
+                {% endfor %}
             </div>
+          {% endif %}
+        {% endwith %}
+
+        <form method="POST" class="login-form">
+            <label>Username</label>
+            <input type="text" name="username" required> <br><br>
+
+            <label>Password</label>
+            <input type="password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <div class="note-box">
+            <strong>Default Admin</strong><br>
+            Username: admin<br>
+            Password: Admin@123
         </div>
+
     </div>
+</div>
 </body>
 </html>
