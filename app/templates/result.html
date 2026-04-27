@@ -98,6 +98,7 @@
                             <th>RF</th>
                             <th>RF Prob.</th>
                             <th>SVM</th>
+                            <th>SVM Prob.</th>
                             {% if bert_available %}
                                 <th>BERT</th>
                                 <th>BERT Prob.</th>
@@ -116,6 +117,8 @@
                             <td>{{ row["RF Prediction"] }}</td>
                             <td>{{ row["RF Probability"] }}</td>
                             <td>{{ row["SVM Prediction"] }}</td>
+                            <td>{{ row["SVM Probability"] }}</td>
+                            </tr>
 
                             {% if bert_available %}
                                 <td>{{ row["BERT Prediction"] }}</td>

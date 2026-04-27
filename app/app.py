@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import pandas as pd
 import joblib
+import numpy as np
 import os
 import sqlite3
 from functools import wraps
@@ -244,6 +245,15 @@ def run_prediction_on_dataframe(df):
     df["RF Probability"] = [round(float(x), 3) for x in rf_probs]
 
     df["SVM Prediction"] = ["Phishing" if x == 1 else "Legitimate" for x in svm_preds]
+
+# -------- ADD THIS BLOCK --------
+    if hasattr(svm_model, "decision_function"):
+        svm_scores = svm_model.decision_function(X_tfidf)
+        svm_probs = 1 / (1 + np.exp(-svm_scores))   # sigmoid conversion
+        df["SVM Probability"] = [round(float(x), 3) for x in svm_probs]
+    else:
+        df["SVM Probability"] = ["N/A"] * len(df)
+# --------------------------------
 
     if runtime_bert_available:
         df["BERT Prediction"] = ["Phishing" if x == 1 else "Legitimate" for x in bert_preds]
